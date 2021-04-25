@@ -1,14 +1,14 @@
 class Contacts:
 
-    def __init__(self, contact_dict):
-        self.first_name = contact_dict["first_name"]
-        self.last_name = contact_dict["last_name"]
-        self.address = contact_dict["address"]
-        self.city = contact_dict["city"]
-        self.state = contact_dict["state"]
-        self.zip = contact_dict["zip"]
-        self.phone_number = contact_dict["phone_number"]
-        self.email = contact_dict["email"]
+    def __init__(self, contact_list):
+        self.first_name = contact_list["first_name"]
+        self.last_name = contact_list["last_name"]
+        self.address = contact_list["address"]
+        self.city = contact_list["city"]
+        self.state = contact_list["state"]
+        self.zip = contact_list["zip"]
+        self.phone_number = contact_list["phone_number"]
+        self.email = contact_list["email"]
 
     def get_first_name(self):
         return self.first_name
@@ -68,17 +68,3 @@ class Contacts:
                " Zip = " + self.zip + \
                " Phone Number = " + self.phone_number + \
                " Email = " + self.email
-
-
-dict1 = {
-    "first_name": "Amit",
-    "last_name": "Kumar",
-    "address": "K-Type",
-    "city": "Jamshedpur",
-    "state": "Jharkhand",
-    "zip": "831004",
-    "phone_number": "8210029078",
-    "email": "ak657harley@gmail.com"
-}
-contact1 = Contacts(dict1)
-print(contact1.__str__())
