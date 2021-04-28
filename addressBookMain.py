@@ -1,4 +1,3 @@
-import address_book
 from address_book import Contacts
 
 contact_dict = {}
