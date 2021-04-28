@@ -76,7 +76,7 @@ class AddressBookMain:
         while check:
             choice = int(input("Press the corresponding number according to your action required:"
                                "\n1. ADD CONTACTS\n2. UPDATE CONTACTS"
-                               "\n3. PRINT CONTACTS\n4. EXIT\n"))
+                               "\n3. PRINT CONTACTS\n4. DELETE CONTACT\n5. EXIT\n"))
             if choice == 1:
                 self.add_contacts()
             elif choice == 2:
@@ -85,9 +85,22 @@ class AddressBookMain:
                 for contacts in self.contact_list:
                     print(contacts)
             elif choice == 4:
+                self.__del__()
+            elif choice == 5:
                 check = False
             else:
                 print("Invalid Input")
+
+    def __del__(self):
+        first_name = input("Enter your first name to delete your contact: ")
+        for contacts in self.contact_list:
+            index = 0
+            if contacts.first_name == first_name:
+                del self.contact_list[index]
+                break
+            else:
+                pass
+            index += 1
 
 
 address = AddressBookMain()
