@@ -67,6 +67,20 @@ class AddressBookMain:
         else:
             print("Invalid Input. TRY AGAIN!!")
 
+    def remove_contact(self):
+        """
+
+        :return: deleted a selected contact by it's First Name
+        """
+        name = input("Enter your first name to delete your contact: ")
+        index = 0
+        for contacts in self.contact_list:
+            if contacts.first_name == name:
+                del self.contact_list[index]
+                break
+            else:
+                index += 1
+
     def actions(self):
         """
 
@@ -85,22 +99,11 @@ class AddressBookMain:
                 for contacts in self.contact_list:
                     print(contacts)
             elif choice == 4:
-                self.__del__()
+                self.remove_contact()
             elif choice == 5:
                 check = False
             else:
                 print("Invalid Input")
-
-    def __del__(self):
-        first_name = input("Enter your first name to delete your contact: ")
-        for contacts in self.contact_list:
-            index = 0
-            if contacts.first_name == first_name:
-                del self.contact_list[index]
-                break
-            else:
-                pass
-            index += 1
 
 
 address = AddressBookMain()
