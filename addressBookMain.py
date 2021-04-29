@@ -6,9 +6,9 @@ contact_dict = {}
 class AddressBookMain:
 
     def __init__(self):
-        self.contact_list = []
+        self.contact_book = {}
 
-    def add_contacts(self):
+    def add_contacts(self, contact_name, contact_list):
         """
 
         :return: add a contact list consisting of new contact details
@@ -24,20 +24,21 @@ class AddressBookMain:
             "email": input("Enter your email: ")
         }
         contact = Contacts(contact_dict)
-        self.contact_list.append(contact)
+        contact_list.append(contact)
+        self.contact_book[contact_name] = contact_list
 
-    def update_contact(self):
+    def update_contact(self, contact_list):
         """
 
         :return: to update a contact
         """
         first_name = input("Enter your first name to edit your contact: ")
-        for contacts in self.contact_list:
+        for contacts in contact_list:
             if contacts.first_name == first_name:
                 self.contact_to_edit(contacts)
                 break
-            else:
-                pass
+        else:
+            print(f"{first_name} does not exist")
 
     def contact_to_edit(self, contacts):
         """
@@ -67,24 +68,25 @@ class AddressBookMain:
         else:
             print("Invalid Input. TRY AGAIN!!")
 
-    def remove_contact(self):
+    def remove_contact(self, contact_list):
         """
 
         :return: deleted a selected contact by it's First Name
         """
         name = input("Enter your first name to delete your contact: ")
         index = 0
-        for contacts in self.contact_list:
+        for contacts in contact_list:
             if contacts.first_name == name:
-                del self.contact_list[index]
+                del contact_list[index]
                 break
-            else:
-                index += 1
+            index += 1
+        else:
+            print(f"{name} not in contact book")
 
-    def actions(self):
+    def contact_list_action(self, contact_name, contact_list):
         """
 
-        :return: traversing the address book to perform specific actions
+        :return: traversing the contact list to perform specific actions
         """
         check = True
         while check:
@@ -92,19 +94,67 @@ class AddressBookMain:
                                "\n1. ADD CONTACTS\n2. UPDATE CONTACTS"
                                "\n3. PRINT CONTACTS\n4. DELETE CONTACT\n5. EXIT\n"))
             if choice == 1:
-                self.add_contacts()
+                self.add_contacts(contact_name, contact_list)
             elif choice == 2:
-                self.update_contact()
+                self.update_contact(contact_list)
             elif choice == 3:
-                for contacts in self.contact_list:
+                for contacts in contact_list:
                     print(contacts)
             elif choice == 4:
-                self.remove_contact()
+                self.remove_contact(contact_list)
             elif choice == 5:
                 check = False
             else:
                 print("Invalid Input")
 
+    def address_book_action(self):
+        """
+
+        :return: traversing the address book to perform specific actions
+        """
+
+        check_bool = True
+        while check_bool:
+            choice = int(input("Press the corresponding number according to your action required: "
+                               "\n1. NEW ADDRESS BOOK\n2. EXISTING ADDRESS BOOK\n3.EXIT\n"))
+            if choice == 1:
+                self.add_new_address_book()
+            elif choice == 2:
+                name = input("Enter the name of your address book: ")
+                for contact_name in self.contact_book:
+                    if contact_name == name:
+                        self.contact_list_action(contact_name, self.contact_book[contact_name])
+                else:
+                    print(f"{name} does not exist")
+            elif choice == 3:
+                check_bool = False
+
+    def add_new_address_book(self):
+        """
+
+        :return: adding a new address book
+        """
+        contact_list = []
+        name = self.unique_name_check()
+        self.add_contacts(name, contact_list)
+        self.contact_list_action(name, self.contact_book[name])
+
+    def unique_name_check(self):
+        """
+
+        :return: checking if the name is unique or not
+        """
+        check = True
+        while check:
+            name = input("Enter a unique name for your address book")
+            for contact_name in self.contact_book:
+                if contact_name == name:
+                    print("Try Again!! Name already exist")
+                    break
+            else:
+                check = False
+        return name
+
 
 address = AddressBookMain()
-address.actions()
+address.address_book_action()
