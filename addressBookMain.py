@@ -1,3 +1,5 @@
+import csv
+
 from address_book import Contacts
 
 contact_dict = {}
@@ -7,6 +9,23 @@ class AddressBookMain:
 
     def __init__(self):
         self.contact_book = {}
+
+    # def write_to_csv_file(self, contact_list):
+    #     with open('Contact_Details.csv', 'w') as csvfile:
+    #         csvwriter = csv.writer(csvfile)
+    #         csvwriter.writerow(["first_name", "last_name", "address", "city", "state", "zip", "phone_number", "email"])
+    #         for contacts in contact_list:
+    #             contact = contacts.__dict__
+    #             csvwriter.writerow(contact.values())
+
+    def write_to_csv_file(self):
+        with open('Contact_Details.csv', 'w') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            for key, value in self.contact_book.items():
+                csv_writer.writerow(key)
+                for contacts in value:
+                    contact = contacts.__dict__
+                    csv_writer.writerow(contact.values())
 
     def add_contacts(self, contact_name, contact_list):
         """
@@ -39,6 +58,7 @@ class AddressBookMain:
                 break
         else:
             print(f"{first_name} does not exist")
+        # self.write_to_csv_file(contact_list)
 
     def contact_to_edit(self, contacts):
         """
@@ -82,6 +102,7 @@ class AddressBookMain:
             index += 1
         else:
             print(f"{name} not in contact book")
+        # self.write_to_csv_file(contact_list)
 
     def contact_list_action(self, contact_name, contact_list):
         """
@@ -90,6 +111,7 @@ class AddressBookMain:
         """
         check = True
         while check:
+            # self.write_to_csv_file(contact_list)
             choice = int(input("Press the corresponding number according to your action required:"
                                "\n1. ADD CONTACTS\n2. UPDATE CONTACTS"
                                "\n3. PRINT CONTACTS\n4. DELETE CONTACT\n5. EXIT\n"))
@@ -116,7 +138,7 @@ class AddressBookMain:
         check_bool = True
         while check_bool:
             choice = int(input("Press the corresponding number according to your action required: "
-                               "\n1. NEW ADDRESS BOOK\n2. EXISTING ADDRESS BOOK\n3.EXIT\n"))
+                               "\n1. NEW ADDRESS BOOK\n2. EXISTING ADDRESS BOOK\n3. WRITE TO CSV FILE\n4.EXIT\n"))
             if choice == 1:
                 self.add_new_address_book()
             elif choice == 2:
@@ -127,7 +149,11 @@ class AddressBookMain:
                 else:
                     print(f"{name} does not exist")
             elif choice == 3:
+                self.write_to_csv_file()
+            elif choice == 4:
                 check_bool = False
+            else:
+                print("Invalid Input. TRY AGAIN!!")
 
     def add_new_address_book(self):
         """
@@ -146,7 +172,7 @@ class AddressBookMain:
         """
         check = True
         while check:
-            name = input("Enter a unique name for your address book")
+            name = input("Enter a unique name for your address book: ")
             for contact_name in self.contact_book:
                 if contact_name == name:
                     print("Try Again!! Name already exist")
