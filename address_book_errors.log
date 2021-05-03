@@ -1,0 +1,5 @@
+ERROR:__main__:invalid literal for int() with base 10: 'dsfdfds'
+2021-05-03 20:00:09,080 ERROR __main__ invalid literal for int() with base 10: 'dfgd'
+2021-05-03 20:01:52,780 ERROR logger invalid literal for int() with base 10: ''
+2021-05-03 20:01:52,780 ERROR logger invalid literal for int() with base 10: 'sdkfhfsd'
+2021-05-03 20:02:11,140 ERROR logger invalid literal for int() with base 10: 'Hi'
